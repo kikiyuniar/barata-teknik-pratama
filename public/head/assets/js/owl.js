@@ -187,6 +187,7 @@
 		items: 3,
 		loop: false,
 		center: false,
+		autoplay:true,
 		rewind: false,
 		checkVisibility: true,
 
@@ -2718,10 +2719,10 @@
 	 * @public
 	 */
 	Autoplay.Defaults = {
-		autoplay: false,
+		autoplay: true,
 		autoplayTimeout: 5000,
-		autoplayHoverPause: false,
-		autoplaySpeed: false
+		autoplayHoverPause: true,
+		autoplaySpeed: true
 	};
 
 	/**

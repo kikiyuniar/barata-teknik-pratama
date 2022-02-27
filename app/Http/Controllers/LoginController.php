@@ -7,8 +7,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
+use Facade\FlareClient\View;
 
 class LoginController extends Controller
 {
@@ -30,7 +32,7 @@ class LoginController extends Controller
             }
             return redirect('dashboard');
         }
-        return redirect('/login')->with('danger', 'Email/Password Salah ');
+        return redirect()->back()->with('danger', 'Email/Password Salah ');
     }
 
     public function showFormRegister()
@@ -65,56 +67,93 @@ class LoginController extends Controller
 
         $user = new User;
         $user->name = ucwords(strtolower($request->name));
+        $user->foto = 'profile.jpg';
         $user->email = strtolower($request->email);
         $user->password = Hash::make($request->password);
         $user->email_verified_at = \Carbon\Carbon::now();
         $simpan = $user->save();
 
         if ($simpan) {
-            Session::flash('success', 'Register berhasil! Silahkan login untuk mengakses data');
-            return redirect('/login');
+            return redirect('profile')->with('success', 'Task Created Successfully!');
         } else {
-            Session::flash('errors', ['' => 'Register gagal! Silahkan ulangi beberapa saat lagi']);
+            return redirect('profile')->with('error', 'Register failed! Please repeat again!');
         }
     }
+
+    public function view_profile()
+    {
+        $data = User::all();
+        return view('dashboard.main_dashboard.profile', [
+            'user' => $data
+        ]);
+    }
+
+    public function edit_profile(Request $request, $id)
+    {
+        $cek_password = $request->password;
+        $profile = User::findOrFail($id);
+
+        if ($cek_password == null) {
+            try {
+                $file       = $request->file('foto');
+                $extension  = $request->foto->getClientOriginalExtension();  //Get Image Extension
+                $fileName   =  uniqid() . '.' . $extension;  //Concatenate both to get FileName (eg: file.jpg)
+
+                $file->move(public_path() . '/img_profile/', $fileName);
+                File::delete(public_path('img_profile/' . $profile->foto));
+
+                $profile->foto = $fileName;
+                $profile->name = $request->input('name');
+                $profile->email = $request->input('email');
+                $profile->save($request->all());
+                return redirect()->back()->with('success', 'Edit profile success');
+            } catch (\Throwable $th) {
+                $profile->name = $request->input('name');
+                $profile->email = $request->input('email');
+                $profile->save($request->all());
+                return redirect()->back()->with('success', 'Edit profile success');
+            }
+        } else {
+            User::find($id)->update([
+                'password' => bcrypt($request->password),
+            ]);
+            return redirect()->back()->with('success', 'Edit password success, please login again!');
+        }
+    }
+
+    public function destroy($id)
+    {
+        $del = User::find($id);
+        if ($del) {
+            $file = public_path('img_profile/' . $del->foto);
+
+            if (File::exists($file)) {
+                File::delete($file);
+            }
+
+            $del->delete();
+            return redirect()->back()->with('success', 'Deleted successfully');
+        }
+    }
+
+    public function del($id)
+    {
+        $del = User::find($id);
+        if ($del) {
+            $file = public_path('img_profile/' . $del->foto);
+
+            if (File::exists($file)) {
+                File::delete($file);
+            }
+
+            $del->delete();
+            return redirect()->back()->with('success', 'Deleted successfully');
+        }
+    }
+
     public function logout()
     {
         Auth::logout();
         return redirect('/');
     }
-
-    // public function view_login()
-    // {
-    //     return view('auth.login');
-    // }
-
-    // public function authenticate(Request $request)
-    // {
-    //     $request->validate([
-    //         'email' => 'required|email',
-    //         'password' => 'required|string'
-    //     ]);
-    //     $credentials = $request->only('email', 'password');
-
-    //     if (Auth::attempt($credentials)) {
-    //         $request->session()->regenerate();
-
-    //         return redirect()->intended('dashboard');
-    //     }
-
-    //     return back()->with([
-    //         'loginError' => 'email atau Password salah',
-    //     ]);
-    // }
-
-    // public function logout(Request $request)
-    // {
-    //     Auth::logout();
-
-    //     $request->session()->invalidate();
-
-    //     $request->session()->regenerateToken();
-
-    //     return redirect('/');
-    // }
 }
