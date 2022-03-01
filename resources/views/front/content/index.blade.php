@@ -70,7 +70,9 @@
                             <thead class="thead-light">
                                 <tr>
                                     <th scope="col">
-                                        <h5 class="text-center">Products</h5>
+                                        <a href="{{url('product')}}">
+                                            <h5 class="text-center">Products</h5>
+                                        </a>
                                     </th>
                                 </tr>
                             </thead>
