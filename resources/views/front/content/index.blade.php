@@ -1,21 +1,42 @@
 @extends('front.master.head')
 {{-- @extends('master.footer') --}}
 @section('main')
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+<style>
+    .slider .slick-slide {
+        border: solid 1px #000;
+        top: 30px ;!important
+    }
+    .slider .slick-slide img {
+        width: 100%;
+    }
+    .lis {
+      color: black;
+    }
+    
+    .lis:hover {
+      color: #0d8def;
+    }
+    
+    li.b {
+      list-style-type: square;
+      margin-left: 10px;
+    }
+</style>
     <!-- Banner Starts Here -->
     <div class="main-banner header-text" id="top">
         <div class="Modern-Slider">
-            <!-- Item -->
-            @foreach ($slide as $item)
-                
-            <div class="item item-{{$loop->iteration}}">
-                <div style="background-image: url({{ URL::asset('img_slide') }}/{{$item->foto}})" class="img-fill">
-                    <div class="text-content">
-                        <h4>{{$item->judul}}</h4>
-                        <p>{!! strip_tags($item->keterangan) !!}</p>
-                    </div>
+            
+            <div style="top: 50px" class="slider">
+                @foreach ($slide as $item)
+                <div>
+                    <a href="#">
+                        <img src="{{ URL::asset('img_slide') }}/{{$item->foto}}" alt="Image 1">
+                    </a>            
                 </div>
+                @endforeach
             </div>
-            @endforeach
         </div>
     </div>
     <!-- Banner Ends Here -->
@@ -33,7 +54,7 @@
             </div>
         </div>
     </div>
-    <div class="partners" style="margin-top: 0px">
+    <div class="partners" style="margin-top: 0px; padding:0px">
       <div class="container">
         <div class="row">
           <div class="col-md-12">
@@ -77,13 +98,17 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($kate as $item)
+                                
                                 <tr>
                                     <td>
-                                        <a href="{{ ('../product/categories/'.$item->slug_kategori) }}" class="list-group-item list-group-item-action">{{$item->name}}</a>
+                                        <ul>
+                                            @foreach ($kate as $item)
+                                            <li class="b"><a class="lis" href="{{ ('../product/categories/'.$item->slug_kategori) }}">{{$item->name}}</a></li>
+                                            @endforeach
+                                        </ul>
                                     </td>
                                 </tr>
-                                @endforeach
+                               
                             </tbody>
                         </table>
                     </div>

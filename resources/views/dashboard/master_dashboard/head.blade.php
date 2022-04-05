@@ -1,278 +1,157 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="js">
+<html lang="en">
 
 <head>
-    <base href="../">
-    <meta charset="utf-8">
-    <meta name="author" content="Softnio">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="description"
-        content="A powerful and conceptual apps base dashboard template that especially build for developers and programmers.">
-    <!-- Fav Icon  -->
-    <link rel="shortcut icon" href="{{ URL::asset('dapur') }}/images/favicon.png">
-    <!-- Page Title  -->
     <title>Dashboard | CV. Barata Teknik Pratama</title>
-    <!-- StyleSheets  -->
-    <link rel="stylesheet" href="{{ URL::asset('dapur') }}/assets/css/dashlite.css?ver=2.9.0">
-    <link id="skin-default" rel="stylesheet" href="{{ URL::asset('dapur') }}/assets/css/theme.css?ver=2.9.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="{{ URL::asset('dapur') }}/assets/css/bootstrap.css">
+
+    <link rel="stylesheet" href="{{ URL::asset('dapur') }}/assets/vendors/iconly/bold.css">
     <link rel="stylesheet" href="{{ URL::asset('dapur') }}/assets/css/drop-files.css">
-    <link rel="stylesheet" href="{{ URL::asset('dapur') }}/assets/css/libs/fontawesome-icons.css?ver=2.9.0">
-    <link rel="stylesheet" href="{{ URL::asset('dapur') }}/assets/css/libs/themify-icons.css?ver=2.9.0">
-    <link rel="stylesheet" href="{{ URL::asset('dapur') }}/assets/css/libs/bootstrap-icons.css?ver=2.9.0">
+    <link rel="stylesheet" href="{{ URL::asset('dapur') }}/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="{{ URL::asset('dapur') }}/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ URL::asset('dapur') }}/assets/css/app.css">
+    <link rel="stylesheet" href="{{ URL::asset('dapur') }}/assets/vendors/simple-datatables/style.css">
     <script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
 </head>
 
-<body class="nk-body bg-lighter npc-default has-sidebar ">
-    <div class="nk-app-root">
-        <!-- main @s -->
-        <div class="nk-main ">
-            <!-- sidebar @s -->
-            <div class="nk-sidebar nk-sidebar-fixed is-light " data-content="sidebarMenu">
-                <div class="nk-sidebar-element nk-sidebar-head">
-                    <div class="nk-sidebar-brand">
-                        <a href="{{url('dashboard')}}" class="logo-link nk-sidebar-logo">
-                            <img class="logo-light logo-img" src="{{ URL::asset('head') }}/assets/images/LOGOBTP.png"
-                                srcset="{{ URL::asset('head') }}/assets/images/LOGOBTP.png 2x" alt="logo">
-                            <img class="logo-dark logo-img" src="{{ URL::asset('head') }}/assets/images/LOGOBTP.png"
-                                srcset="{{ URL::asset('head') }}/assets/images/LOGOBTP.png 2x" alt="logo-dark">
-                            <img class="logo-small logo-img logo-img-small"
-                                src="{{ URL::asset('head') }}/assets/images/LOGOBTP.png"
-                                srcset="{{ URL::asset('head') }}/assets/images/LOGOBTP.png 2x" alt="logo-small">
-                        </a>
-                    </div>
-                    <div class="nk-menu-trigger mr-n2">
-                        <a href="#" class="nk-nav-toggle nk-quick-nav-icon d-xl-none" data-target="sidebarMenu"><em
-                                class="icon ni ni-arrow-left"></em></a>
-                        <a href="#" class="nk-nav-compact nk-quick-nav-icon d-none d-xl-inline-flex"
-                            data-target="sidebarMenu"><em class="icon ni ni-menu"></em></a>
-                    </div>
-                </div><!-- .nk-sidebar-element -->
-                <div class="nk-sidebar-element">
-                    <div class="nk-sidebar-content">
-                        <div class="nk-sidebar-menu" data-simplebar>
-                            <ul class="nk-menu">
-
-                                <li class="nk-menu-item {{ Request::is('dashboard') ? 'active' : '' }}">
-                                    <a href="dashboard" class="nk-menu-link">
-                                        <span class="nk-menu-icon"><em class="icon ni ni-dashboard-fill"></em></span>
-                                        <span class="nk-menu-text">Dashboard</span></span>
-                                    </a>
-                                </li><!-- .nk-menu-item -->
-
-                                <li class="nk-menu-item {{ Request::is('profile') ? 'active' : '' }}">
-                                    <a href="profile" class="nk-menu-link">
-                                        <span class="nk-menu-icon"><em class="icon ni ni-account-setting"></em></span>
-                                        <span class="nk-menu-text">Profile</span>
-                                    </a>
-                                </li><!-- .nk-menu-item -->
-
-                                <li class="nk-menu-heading">
-                                    <h6 class="overline-title text-primary-alt">Item Categories</h6>
-                                </li><!-- .nk-menu-item -->
-
-                                <li class="nk-menu-item {{ Request::is('category') ? 'active' : '' }}">
-                                    <a href="category" class="nk-menu-link">
-                                        <span class="nk-menu-icon"><em class="icon ni ni-tile-thumb-fill"></em></span>
-                                        <span class="nk-menu-text">Category List</span>
-                                    </a>
-                                </li><!-- .nk-menu-item -->
-
-                                <li class="nk-menu-heading">
-                                    <h6 class="overline-title text-primary-alt">Item Products</h6>
-                                </li><!-- .nk-menu-item -->
-
-                                <li class="nk-menu-item {{ Request::is('list_products') ? 'active' : '' }}">
-                                    <a href="list_products" class="nk-menu-link">
-                                        <span class="nk-menu-icon"><em class="icon ni ni-card-view"></em></span>
-                                        <span class="nk-menu-text">Product List</span>
-                                    </a>
-                                </li><!-- .nk-menu-item -->
-
-                                 <li class="nk-menu-heading">
-                                    <h6 class="overline-title text-primary-alt">Front Page</h6>
-                                </li><!-- .nk-menu-item -->
-
-                                <li class="nk-menu-item {{ Request::is('slide') ? 'active' : '' }}">
-                                    <a href="slide" class="nk-menu-link">
-                                        <span class="nk-menu-icon"><em class="icon ni ni-card-view"></em></span>
-                                        <span class="nk-menu-text">Slides</span>
-                                    </a>
-                                </li><!-- .nk-menu-item -->
-
-                                <li class="nk-menu-item {{ Request::is('dash_bout') ? 'active' : '' }}">
-                                    <a href="dash_about" class="nk-menu-link">
-                                        <span class="nk-menu-icon"><em class="icon ni ni-card-view"></em></span>
-                                        <span class="nk-menu-text">About Us</span>
-                                    </a>
-                                </li><!-- .nk-menu-item -->
-                                
-                                <li class="nk-menu-item {{ Request::is('contact') ? 'active' : '' }}">
-                                    <a href="contact" class="nk-menu-link">
-                                        <span class="nk-menu-icon"><em class="icon ni ni-card-view"></em></span>
-                                        <span class="nk-menu-text">Contact Us</span>
-                                    </a>
-                                </li><!-- .nk-menu-item -->
-
-                            </ul><!-- .nk-menu -->
-                        </div><!-- .nk-sidebar-menu -->
-                    </div><!-- .nk-sidebar-content -->
-                </div><!-- .nk-sidebar-element -->
-            </div>
-            <!-- sidebar @e -->
-            <!-- wrap @s -->
-            <div class="nk-wrap ">
-                <!-- main header @s -->
-                <div class="nk-header nk-header-fixed is-light">
-                    <div class="container-fluid">
-                        <div class="nk-header-wrap">
-                            <div class="nk-menu-trigger d-xl-none ml-n1">
-                                <a href="{{url('dashboard')}}" class="nk-nav-toggle nk-quick-nav-icon" data-target="sidebarMenu"><em
-                                        class="icon ni ni-menu"></em></a>
-                            </div>
-                            <div class="nk-header-brand d-xl-none">
-                                <a href="{{url('dashboard')}}" class="logo-link">
-                                    <img class="logo-light logo-img" src="{{ URL::asset('head') }}/assets/images/LOGOBTP.png"
-                                        srcset="{{ URL::asset('head') }}/assets/images/LOGOBTP.png 2x" alt="logo">
-                                    <img class="logo-dark logo-img"
-                                        src="{{ URL::asset('head') }}/assets/images/LOGOBTP.png"
-                                        srcset="{{ URL::asset('head') }}/assets/images/LOGOBTP.png 2x" alt="logo-dark">
-                                </a>
-                            </div><!-- .nk-header-brand -->
-                            {{-- <div class="nk-header-search ml-3 ml-xl-0">
-                                <em class="icon ni ni-search"></em>
-                                <input type="text" class="form-control border-transparent form-focus-none"
-                                    placeholder="Search anything">
-                            </div><!-- .nk-header-news --> --}}
-                            <div class="nk-header-tools">
-                                <ul class="nk-quick-nav">
-                                    {{-- <li class="dropdown notification-dropdown">
-                                        <a href="#" class="dropdown-toggle nk-quick-nav-icon" data-toggle="dropdown">
-                                            <div class="icon-status icon-status-info"><em class="icon ni ni-bell"></em></div>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-xl dropdown-menu-right">
-                                            <div class="dropdown-head">
-                                                <span class="sub-title nk-dropdown-title">Notifications</span>
-                                                <a href="#">Mark All as Read</a>
-                                            </div>
-                                            <div class="dropdown-body">
-                                                <div class="nk-notification">
-                                                    <div class="nk-notification-item dropdown-inner">
-                                                        <div class="nk-notification-icon">
-                                                            <em class="icon icon-circle bg-warning-dim ni ni-curve-down-right"></em>
-                                                        </div>
-                                                        <div class="nk-notification-content">
-                                                            <div class="nk-notification-text">You have requested to <span>Widthdrawl</span></div>
-                                                            <div class="nk-notification-time">2 hrs ago</div>
-                                                        </div>
-                                                    </div>
-                                                </div><!-- .nk-notification -->
-                                            </div><!-- .nk-dropdown-body -->
-                                            <div class="dropdown-foot center">
-                                                <a href="#">View All</a>
-                                            </div>
-                                        </div>
-                                    </li> --}}
-                                    <li class="dropdown user-dropdown">
-                                        <a href="#" class="dropdown-toggle mr-n1" data-toggle="dropdown">
-                                            <div class="user-toggle">
-                                                <div class="user-avatar">
-                                                    <img src="{{ URL::asset('img_profile') }}/{{Auth::user()->foto}}" alt="">
-                                                </div>
-                                                <div class="user-info d-none d-xl-block">
-                                                    <div class="user-status user-status-unverified">
-                                                        {{ Auth::user()->email }}</div>
-                                                    <div class="user-name dropdown-indicator">
-                                                        {{ Auth::user()->name }}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
-                                            <div class="dropdown-inner user-card-wrap bg-lighter d-none d-md-block">
-                                                <div class="user-card">
-                                                    <div class="user-avatar">
-                                                        <span>AB</span>
-                                                    </div>
-                                                    <div class="user-info">
-                                                        <span class="lead-text">{{ Auth::user()->name }}</span>
-                                                        <span class="sub-text">{{ Auth::user()->email }}</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="dropdown-inner">
-                                                <ul class="link-list">
-                                                    <li><a href="{{url('profile')}}">
-                                                            <em class="icon ni ni-user-alt"></em>
-                                                            <span>View Profile</span>
-                                                        </a>
-                                                    </li>
-                                                    <li><a class="dark-switch active" href="#">
-                                                            <em class="icon ni ni-moon"></em>
-                                                            <span>Dark Mode</span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="dropdown-inner">
-                                                <ul class="link-list">
-                                                    <li><a href="logout"><em class="icon ni ni-signout"></em><span>Sign
-                                                                out</span></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a target="_blank" style="font-size: 25px" href="{{url('/')}}">| <i class="bi bi-globe lg"></i></a>
-                                    </li>
-                                </ul>
-                                
-                            </div>
-                        </div><!-- .nk-header-wrap -->
-                    </div><!-- .container-fliud -->
-                </div>
-                <!-- main header -->
-                @yield('main')
-                <!-- end main header -->
-                <!-- footer @s -->
-                <div class="nk-footer">
-                    <div class="container-fluid">
-                        <div class="nk-footer-wrap">
-                            <?php $tgl=date('Y'); ?>
-                            <div class="nk-footer-copyright"> &copy; {{$tgl}} 
-                                CV.Barata Teknik Pratama. by <a
-                                    href="workplaceme.net" target="_blank">Workplaeme</a>
-                            </div>
+<body>
+    <div id="app">
+        <div id="sidebar" class="active">
+            <div class="sidebar-wrapper active">
+                <div class="sidebar-header">
+                    <div class="d-flex justify-content-between">
+                        <div class="">
+                            Dashboard
+                        </div>
+                        <div class="toggler">
+                            <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
                         </div>
                     </div>
                 </div>
-                <!-- footer @e -->
-            </div>
-            <!-- wrap @e -->
-        </div>
-        <!-- main @e -->
-    </div>
-    <!-- app-root @e -->
+                <div class="sidebar-menu">
+                    <ul class="menu">
+                        <li class="sidebar-title">Menu</li>
 
-    <!-- JavaScript -->
-    <script src="{{ URL::asset('dapur') }}/assets/js/bundle.js?ver=2.9.0"></script>
-    <script src="{{ URL::asset('dapur') }}/assets/js/scripts.js?ver=2.9.0"></script>
-    <script src="{{ URL::asset('dapur') }}/assets/js/charts/chart-ecommerce.js?ver=2.9.0"></script>
-    <link rel="stylesheet" href="{{ URL::asset('dapur') }}/assets/css/editors/tinymce.css?ver=2.9.0">
-    <script src="{{ URL::asset('dapur') }}/assets/js/libs/editors/tinymce.js?ver=2.9.0"></script>
-    <script src="{{ URL::asset('dapur') }}/assets/js/editors.js?ver=2.9.0"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.3/datatables.min.js"></script>
-    <link rel="stylesheet" href="{{ URL::asset('dapur') }}/assets/css/editors/summernote.css?ver=2.9.0">
-    <script src="{{ URL::asset('dapur') }}/assets/js/libs/editors/summernote.js?ver=2.9.0"></script>
-    <link rel="stylesheet" href="{{ URL::asset('dapur') }}/assets/css/editors/quill.css?ver=2.9.0">
-    <script src="{{ URL::asset('dapur') }}/assets/js/libs/editors/quill.js?ver=2.9.0"></script>
+                        <li class="sidebar-item {{ Request::is('dashboard') ? 'active' : '' }} ">
+                            <a href="{{url('dashboard')}}" class='sidebar-link'>
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                        
+                        <li class="sidebar-title">Components</li>
+                        <li class="sidebar-item {{ Request::is('profile') ? 'active' : '' }} ">
+                            <a href="{{url('profile')}}" class='sidebar-link'>
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Profile</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item {{ Request::is('category','sub_category') ? 'active' : '' }} has-sub">
+                            <a class='sidebar-link'>
+                                <i class="bi bi-stack"></i>
+                                <span>Categories</span>
+                            </a>
+                            <ul class="submenu {{ Request::is('category','sub_category') ? 'active' : '' }} ">
+                                <li class="submenu-item {{ Request::is('category') ? 'active' : '' }}">
+                                    <a href="{{url('category')}}">Category / Merk</a>
+                                </li>
+                                <li class="submenu-item {{ Request::is('sub_category') ? 'active' : '' }}">
+                                    <a href="{{url('sub_category')}}">Subcategory / type</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="sidebar-item {{ Request::is('products','list_products') ? 'active' : '' }}  has-sub">
+                            <a  class='sidebar-link'>
+                                <i class="bi bi-collection-fill"></i>
+                                <span>Products</span>
+                            </a>
+                            <ul class="submenu {{ Request::is('products','list_products') ? 'active' : '' }}">
+                                <li class="submenu-item {{ Request::is('products') ? 'active' : '' }}">
+                                    <a href="{{url('products')}}">Add Product</a>
+                                </li>
+                                <li class="submenu-item {{ Request::is('list_products') ? 'active' : '' }}">
+                                    <a href="{{url('list_products')}}">List Products</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="sidebar-title">Layouts</li>
+
+                        <li class="sidebar-item {{ Request::is('slide','dash_about','slide_add') ? 'active' : '' }} has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-grid-1x2-fill"></i>
+                                <span>Layouts</span>
+                            </a>
+                            <ul class="submenu {{ Request::is('slide','dash_about') ? 'active' : '' }}">
+                                <li class="submenu-item {{ Request::is('slide') ? 'active' : '' }}">
+                                    <a href="{{url('slide')}}">Slide</a>
+                                </li>
+                                <li class="submenu-item {{ Request::is('dash_about') ? 'active' : '' }}">
+                                    <a href="{{url('dash_about')}}">About Us</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="sidebar-title">Message</li>
+
+                        <li class="sidebar-item {{ Request::is('contact') ? 'active' : '' }} ">
+                            <a href="{{url('contact')}}" class='sidebar-link'>
+                                <i class="bi bi-file-earmark-medical-fill"></i>
+                                <span>Contacts</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a href="{{url('logout')}}" class='sidebar-link'>
+                                <i class="bi bi-file-earmark-medical-fill"></i>
+                                <span>Logout</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+            </div>
+        </div>
+        <div id="main">
+
+         @yield('main')
+
+        <footer>
+            <div class="footer clearfix mb-0 text-muted">
+                <?php $tgl=date('Y'); ?>
+                <div class="float-start">
+                    <p>{{$tgl}} &copy; Workplaeme </p>
+                </div>
+                <div class="float-end">
+                    <p>CV.Barata Teknik Pratama.</p>
+                </div>
+            </div>
+        </footer>
+        </div>
+    </div>
+    <script src="{{ URL::asset('dapur') }}/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="{{ URL::asset('dapur') }}/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ URL::asset('dapur') }}/assets/js/pages/dashboard.js"></script>
+    <script src="{{ URL::asset('dapur') }}/assets/vendors/simple-datatables/simple-datatables.js"></script>
+    <script src="{{ URL::asset('dapur') }}/assets/js/main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    {{-- <script src="cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script> --}}
+
     <script>
-        $(document).ready(function() {
-            $('#table1').DataTable();
-        });
+        // Simple Datatable
+        let table1 = document.querySelector('#table1');
+        let dataTable = new simpleDatatables.DataTable(table1);
     </script>
-    <script>
-        $(function() {
+        <script>
+            $(function() {
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -285,7 +164,7 @@
 
                     $.ajax({
                         type: 'POST',
-                        url: "{{ 'getsubkategori' }}",
+                        url: "getsubkategori",
                         data: {
                             id_kategori: id_kategori
                         },
@@ -301,14 +180,7 @@
                 });
             });
         });
-    </script>
-    <script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-        $('.ckeditor').ckeditor();
-        });
-    </script>
-
+        </script>
 </body>
 
 </html>

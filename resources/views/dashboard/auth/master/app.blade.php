@@ -1,173 +1,79 @@
+
 <!DOCTYPE html>
-<html lang="zxx" class="js">
+<html lang="en">
 
 <head>
-    <base href="../../../">
-    <meta charset="utf-8">
-    <meta name="author" content="Softnio">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description"
-        content="A powerful and conceptual apps base dashboard template that especially build for developers and programmers.">
-    <!-- Fav Icon  -->
-    <link rel="shortcut icon" href="{{ URL::asset('dapur') }}/images/favicon.png">
-    <!-- Page Title  -->
-    <title>Login | DashLite Admin Template</title>
-    <!-- StyleSheets  -->
-    <link rel="stylesheet" href="{{ URL::asset('dapur') }}/assets/css/dashlite.css?ver=2.9.0">
-    <link id="skin-default" rel="stylesheet" href="{{ URL::asset('dapur') }}/assets/css/theme.css?ver=2.9.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Mazer Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ URL::asset('dapur') }}/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="{{ URL::asset('dapur') }}/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ URL::asset('dapur') }}/assets/css/app.css">
+    <link rel="stylesheet" href="{{ URL::asset('dapur') }}/assets/css/pages/auth.css">
 </head>
 
-<body class="nk-body bg-white npc-default pg-auth">
+<body>
+    <div id="auth">
 
-    @yield('main')
-    {{-- @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"]) --}}
-
-    <!-- JavaScript -->
-    <script src="{{ URL::asset('dapur') }}/assets/js/bundle.js?ver=2.9.0"></script>
-    <script src="{{ URL::asset('dapur') }}/assets/js/scripts.js?ver=2.9.0"></script>
-    <!-- select region modal -->
-    <div class="modal fade" tabindex="-1" role="dialog" id="region">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
-                <div class="modal-body modal-body-md">
-                    <h5 class="title mb-4">Select Your Country</h5>
-                    <div class="nk-country-region">
-                        <ul class="country-list text-center gy-2">
-                            <li>
-                                <a href="#" class="country-item">
-                                    <img src="{{ URL::asset('dapur') }}/images/flags/arg.png" alt=""
-                                        class="country-flag">
-                                    <span class="country-name">Argentina</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="country-item">
-                                    <img src="{{ URL::asset('dapur') }}/images/flags/aus.png" alt=""
-                                        class="country-flag">
-                                    <span class="country-name">Australia</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="country-item">
-                                    <img src="{{ URL::asset('dapur') }}/images/flags/bangladesh.png" alt=""
-                                        class="country-flag">
-                                    <span class="country-name">Bangladesh</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="country-item">
-                                    <img src="{{ URL::asset('dapur') }}/images/flags/canada.png" alt=""
-                                        class="country-flag">
-                                    <span class="country-name">Canada <small>(English)</small></span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="country-item">
-                                    <img src="{{ URL::asset('dapur') }}/images/flags/china.png" alt=""
-                                        class="country-flag">
-                                    <span class="country-name">Centrafricaine</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="country-item">
-                                    <img src="{{ URL::asset('dapur') }}/images/flags/china.png" alt=""
-                                        class="country-flag">
-                                    <span class="country-name">China</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="country-item">
-                                    <img src="{{ URL::asset('dapur') }}/images/flags/french.png" alt=""
-                                        class="country-flag">
-                                    <span class="country-name">France</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="country-item">
-                                    <img src="{{ URL::asset('dapur') }}/images/flags/germany.png" alt=""
-                                        class="country-flag">
-                                    <span class="country-name">Germany</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="country-item">
-                                    <img src="{{ URL::asset('dapur') }}/images/flags/iran.png" alt=""
-                                        class="country-flag">
-                                    <span class="country-name">Iran</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="country-item">
-                                    <img src="{{ URL::asset('dapur') }}/images/flags/italy.png" alt=""
-                                        class="country-flag">
-                                    <span class="country-name">Italy</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="country-item">
-                                    <img src="{{ URL::asset('dapur') }}/images/flags/mexico.png" alt=""
-                                        class="country-flag">
-                                    <span class="country-name">México</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="country-item">
-                                    <img src="{{ URL::asset('dapur') }}/images/flags/philipine.png" alt=""
-                                        class="country-flag">
-                                    <span class="country-name">Philippines</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="country-item">
-                                    <img src="{{ URL::asset('dapur') }}/images/flags/portugal.png" alt=""
-                                        class="country-flag">
-                                    <span class="country-name">Portugal</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="country-item">
-                                    <img src="{{ URL::asset('dapur') }}/images/flags/s-africa.png" alt=""
-                                        class="country-flag">
-                                    <span class="country-name">South Africa</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="country-item">
-                                    <img src="{{ URL::asset('dapur') }}/images/flags/spanish.png" alt=""
-                                        class="country-flag">
-                                    <span class="country-name">Spain</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="country-item">
-                                    <img src="{{ URL::asset('dapur') }}/images/flags/switzerland.png" alt=""
-                                        class="country-flag">
-                                    <span class="country-name">Switzerland</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="country-item">
-                                    <img src="{{ URL::asset('dapur') }}/images/flags/uk.png" alt=""
-                                        class="country-flag">
-                                    <span class="country-name">United Kingdom</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="country-item">
-                                    <img src="{{ URL::asset('dapur') }}/images/flags/english.png" alt=""
-                                        class="country-flag">
-                                    <span class="country-name">United State</span>
-                                </a>
-                            </li>
-                        </ul>
+        <div class="row h-100">
+            <div class="col-lg-5 col-12">
+                <div id="auth-left">
+                    <div class="auth-logo">
+                        <a href="index.html"><img src="{{ URL::asset('head') }}/assets/images/LOGOBTP.png" alt="Logo"></a>
                     </div>
+                    <h1 class="auth-title">Log in.</h1>
+                    <p class="auth-subtitle mb-5">Log in with your data that you entered during registration.</p>
+                    @if ($message = Session::get('danger'))
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </div>
+                    @endif
+                    @if ($message = Session::get('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </div>
+                    @endif
+                    <form action="{{url('login')}}" method="POST">
+                        @csrf
+                        <div class="form-group">
+                            <div class="form-label-group">
+                                <label class="form-label" for="default-01">Email</label>
+                                {{-- <a class="link link-primary link-sm" tabindex="-1" href="#">Need Help?</a> --}}
+                            </div>
+                            <div class="form-control-wrap">
+                                <input type="text" class="form-control form-control-lg" id="default-01"
+                                    placeholder="Enter your email address " name="email">
+                            </div>
+                        </div><!-- .form-group -->
+                        <div class="form-group">
+                            <div class="form-label-group">
+                                <label class="form-label" for="password">Password</label>
+                            </div>
+                            <div class="form-control-wrap">
+                                <a tabindex="-1" href="#" class="form-icon form-icon-right passcode-switch lg"
+                                    data-target="password">
+                                    <em class="passcode-icon icon-show icon ni ni-eye"></em>
+                                    <em class="passcode-icon icon-hide icon ni ni-eye-off"></em>
+                                </a>
+                                <input type="password" class="form-control form-control-lg" id="password"
+                                    placeholder="Enter your password" name="password">
+                            </div>
+                        </div><!-- .form-group -->
+                        <div class="form-group">
+                            <button class="btn btn-dim btn-lg btn-primary btn-block">Sign in</button>
+                        </div>
+                    </form>
                 </div>
-            </div><!-- .modal-content -->
-        </div><!-- .modla-dialog -->
-    </div><!-- .modal -->
+            </div>
+            <div class="col-lg-7 d-none d-lg-block">
+                <div id="auth-right">
 
+                </div>
+            </div>
+        </div>
+
+    </div>
 </body>
-
 
 </html>

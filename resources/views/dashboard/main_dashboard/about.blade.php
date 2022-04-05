@@ -2,158 +2,137 @@
 @section('main')
 {{-- <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script> --}}
 {{-- <script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script> --}}
-
-    <div class="nk-content ">
-        <div class="container-fluid">
-            <div class="nk-content-inner">
-                <div class="nk-content-body">
-                    <div class="card-inner">
-                        <div class="preview-block">
-                            <div class="row gy-4">
-                                <div class="col-sm-12">
-                                    <div id="accordion-2" class="accordion accordion-s3">
-                                        @if ($message = Session::get('success'))
-                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </div>
-                                        @endif
-                                        <div class="accordion-item">
-                                            <a href="#" class="accordion-head collapsed" data-toggle="collapse" data-target="#accordion-item-21">
-                                                <h6 class="title">HOME</h6>
-                                                <span class="accordion-icon"></span>
-                                            </a>
-                                             <div class="accordion-body collapse" id="accordion-item-21" data-parent="#accordion-2">
-                                                <div class="accordion-inner">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="card mb-3" style="max-width: 540px;">
-                                                                <div class="row g-0">
-                                                                @foreach ($home as $item)
-                                                                    <div class="col-md-8">
-                                                                        <div class="card-body">
-                                                                            <span class="badge badge-pill badge-primary">Updated {{$item->updated_at->diffForHumans()}}</span>
-                                                                            <p class="card-text">{!! preg_replace('#<br\s*/?>#', "\n",nl2br($item->keterangan,true)) !!}</p>
-                                                                            {{-- <script>
-                                                                                CKEDITOR.on( 'keterangan', function( ev ) {
-                                                                                // Ends self-closing tags the HTML4 way, like <br>.
-                                                                                ev.editor.dataProcessor.writer.selfClosingEnd = '>';
-                                                                            });
-                                                                            </script> --}}
-                                                                            <a class="btn btn-dim btn-outline-info" data-toggle="modal" data-target="#modalHome{{$item->id}}">Edit</a>
-                                                                        </div>
-                                                                    </div>
-                                                                @endforeach
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+<header class="mb-3">
+    <a href="#" class="burger-btn d-block d-xl-none">
+        <i class="bi bi-justify fs-3"></i>
+    </a>
+</header>
+<div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Front Managements</h3>
+            </div>
+        </div>
+    </div>
+    <section class="section">
+        <div class="card">
+            <div class="card-body">
+                @if ($message = Session::get('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>{{ $message }}</strong>
+                </div>
+                @endif
+                <hr>
+                <div class="list-group list-group-horizontal-sm mb-1 text-center"role="tablist">
+                    <a class="list-group-item list-group-item-action active"
+                        id="list-sunday-list" data-bs-toggle="list" href="#list-sunday"
+                        role="tab">Home</a>
+                    <a class="list-group-item list-group-item-action" id="list-monday-list"
+                        data-bs-toggle="list" href="#list-monday" role="tab">About Us</a>
+                    <a class="list-group-item list-group-item-action" id="list-tuesday-list"
+                        data-bs-toggle="list" href="#list-tuesday" role="tab">Our Business</a>
+                    <a class="list-group-item list-group-item-action" id="list-products-list"
+                        data-bs-toggle="list" href="#list-products" role="tab">Our Products and Services</a>
+                    <a class="list-group-item list-group-item-action" id="list-vision-list"
+                        data-bs-toggle="list" href="#list-vision" role="tab">Vision and Mission</a>
+                </div>
+                <div class="tab-content text-justify">
+                    <div class="tab-pane fade show active" id="list-sunday" role="tabpanel" aria-labelledby="list-sunday-list">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card mb-3">
+                                    <div class="row g-0">
+                                    @foreach ($home as $item)
+                                        <div class="col-md-12">
+                                            <div class="card-body">
+                                                <div class="badges">
+                                                    <span class="badge bg-primary">Updated {{$item->updated_at->diffForHumans()}}</span>
                                                 </div>
+                                                <p class="card-text">{!! preg_replace('#<br\s*/?>#', "\n",nl2br($item->keterangan,true)) !!}</p>
+                                                <a class="btn btn-dim btn-outline-info" data-bs-toggle="modal" data-bs-target="#modalHome{{$item->id}}">Edit</a>
                                             </div>
                                         </div>
-                                        <div class="accordion-item">
-                                            <a href="#" class="accordion-head collapsed" data-toggle="collapse" data-target="#accordion-item-2-1">
-                                                <h6 class="title">ABOUT US</h6>
-                                                <span class="accordion-icon"></span>
-                                            </a>
-                                             <div class="accordion-body collapse" id="accordion-item-2-1" data-parent="#accordion-2">
-                                                <div class="accordion-inner">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="card mb-3" style="max-width: 540px;">
-                                                                <div class="row g-0">
-                                                                    @foreach ($about as $item)
-                                                                    <div class="col-md-4 mt-4">
-                                                                        <img src="{{ URL::asset('img_about') }}/{{$item->foto}}" class="img-fluid rounded-start" alt="...">
-                                                                    </div>
-                                                                    <div class="col-md-8">
-                                                                        <div class="card-body">
-                                                                            <span class="badge badge-pill badge-primary">Updated {{$item->updated_at->diffForHumans()}}</span>
-                                                                            <h5 class="card-title">{{$item->judul}}</h5>
-                                                                            <p class="card-text">{!! strip_tags($item->keterangan) !!}</p>
-                                                                            <a class="btn btn-dim btn-outline-info" data-toggle="modal" data-target="#modalAbout{{$item->id}}">Edit</a>
-                                                                        </div>
-                                                                    </div>
-                                                                @endforeach
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="accordion-item">
-                                            <a href="#" class="accordion-head collapsed" data-toggle="collapse" data-target="#accordion-item-2-2">
-                                                <h6 class="title">OUR BUSINESS</h6>
-                                                <span class="accordion-icon"></span>
-                                            </a>
-                                            <div class="accordion-body collapse" id="accordion-item-2-2" data-parent="#accordion-2" >
-                                                <div class="accordion-inner">
-                                                    <div class="row">
-                                                        @foreach ($business as $item)
-                                                        <div class="col-md-4">
-                                                            <div class="card text-black bg-gray-{{$loop->iteration}}00">
-                                                                <div class="card-header">Updated {{$item->updated_at->diffForHumans()}}</div>
-                                                                <div class="card-inner">
-                                                                    <h5 class="card-title">{{$item->judul}}</h5>
-                                                                    <img src="{{ URL::asset('img_business') }}/{{$item->foto}}" alt="">
-                                                                    <p class="card-text">{!! strip_tags($item->keterangan) !!}</p>
-                                                                </div>
-                                                                <a class="btn btn-dim btn-outline-gray" data-toggle="modal" data-target="#modalBusiness{{$item->id}}">Edit</a>
-                                                            </div>
-                                                        </div>
-                                                        @endforeach
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="accordion-item">
-                                            <a href="#" class="accordion-head collapsed" data-toggle="collapse" data-target="#accordion-item-2-3">
-                                                <h6 class="title">OUR PRODUCTS AND SERVICES</h6>
-                                                <span class="accordion-icon"></span>
-                                            </a>
-                                            <div class="accordion-body collapse" id="accordion-item-2-3" data-parent="#accordion-2" >
-                                                @foreach ($service as $item)
-                                                <div class="accordion-inner">
-                                                    <p>{!! nl2br($item->keterangan) !!}</p>
-                                                    <span class="badge badge-pill badge-primary">Updated {{$item->updated_at->diffForHumans()}}</span><br><br>
-                                                    <a class="btn btn-dim btn-outline-gray" data-toggle="modal" data-target="#modalService{{$item->id}}">Edit</a>
-                                                </div>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                        <div class="accordion-item">
-                                            <a href="#" class="accordion-head collapsed" data-toggle="collapse" data-target="#accordion-item-2-4">
-                                                <h6 class="title">VISION AND MISSION</h6>
-                                                <span class="accordion-icon"></span>
-                                            </a>
-                                            <div class="accordion-body collapse" id="accordion-item-2-4" data-parent="#accordion-2" >
-                                                <div class="accordion-inner">
-                                                    <div class="row">
-                                                        @foreach ($vision as $item)
-                                                        <div class="col-6">
-                                                            <div class="card">
-                                                                <div class="card-inner">
-                                                                    <h5 class="card-title">{{$item->judul}}</h5>
-                                                                    <p class="card-text">{!! $item->keterangan !!}</p>
-                                                                    <span class="badge badge-pill badge-primary">Updated {{$item->updated_at->diffForHumans()}}</span><br><br>
-                                                                    <a class="btn btn-dim btn-outline-gray" data-toggle="modal" data-target="#modalVision{{$item->id}}">Edit</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        @endforeach
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    @endforeach
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="tab-pane fade" id="list-monday" role="tabpanel" aria-labelledby="list-monday-list">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card mb-3" style="max-width: 540px;">
+                                    <div class="row g-0">
+                                        @foreach ($about as $item)
+                                        <div class="col-md-4 mt-4">
+                                            <img src="{{ URL::asset('img_about') }}/{{$item->foto}}" class="img-fluid rounded-start" alt="...">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <div class="badges">
+                                                    <span class="badge bg-primary">Updated {{$item->updated_at->diffForHumans()}}</span>
+                                                </div>
+                                                <h5 class="card-title">{{$item->judul}}</h5>
+                                                <p class="card-text">{!! strip_tags($item->keterangan) !!}</p>
+                                                <a class="btn btn-dim btn-outline-info" data-bs-toggle="modal" data-bs-target="#modalAbout{{$item->id}}">Edit</a>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="list-tuesday" role="tabpanel" aria-labelledby="list-tuesday-list">
+                        <div class="row">
+                            @foreach ($business as $item)
+                            <div class="col-md-6 col-sm-12">
+                                <div class="card">
+                                    <div class="card-content">
+                                        <div class="card-body">
+                                            <h4 class="card-title">{{$item->judul}}</h4>
+                                            <p class="card-text">{!! strip_tags($item->keterangan) !!}</p>
+                                            <small class="text-muted">Last updated {{$item->updated_at->diffForHumans()}}</small>
+                                        </div>
+                                        <img class="card-img-bottom img-fluid" src="{{ URL::asset('img_business') }}/{{$item->foto}}"
+                                            alt="Card image cap" style="height: 20rem; object-fit: cover;">
+                                    </div>
+                                    <a class="btn btn-dim btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalBusiness{{$item->id}}">Edit</a>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="list-products" role="tabpanel" aria-labelledby="list-products-list">
+                        @foreach ($service as $item)
+                        <div class="accordion-inner">
+                            <p>{!! nl2br($item->keterangan) !!}</p>
+                            <span class="badge badge-pill badge-primary">Updated {{$item->updated_at->diffForHumans()}}</span>
+                            <a class="btn btn-dim btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalService{{$item->id}}">Edit</a>
+                        </div>
+                        @endforeach
+                    </div>
+                    <div class="tab-pane fade" id="list-vision" role="tabpanel" aria-labelledby="list-vision-list">
+                        <div class="row">
+                            @foreach ($vision as $item)
+                            <div class="col-6">
+                                <div class="card">
+                                    <div class="card-inner">
+                                        <h5 class="card-title">{{$item->judul}}</h5>
+                                        <p class="card-text">{!! $item->keterangan !!}</p>
+                                        <span class="badge badge-pill badge-primary">Updated {{$item->updated_at->diffForHumans()}}</span><br><br>
+                                        <a class="btn btn-dim btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalVision{{$item->id}}">Edit</a>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+
 
     {{-- modal edit about --}}
     @foreach ($about as $item)
@@ -187,7 +166,7 @@
                             <label class="form-label">Description</label>
                             <div class="card card-bordered">
                                 <div class="card-inner">
-                                    <textarea name="keterangan" class="tinymce-basic form-control" placeholder="Input Description...." required>{{$item->keterangan}}</textarea>
+                                    <textarea name="keterangan" class="ckeditor form-control" placeholder="Input Description...." required>{{$item->keterangan}}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -229,7 +208,7 @@
                             <label class="form-label">Description</label>
                             <div class="card card-bordered">
                                 <div class="card-inner">
-                                    <textarea name="keterangan" class="tinymce-basic form-control" placeholder="Input Description...." required>{{$item->keterangan}}</textarea>
+                                    <textarea name="keterangan" class="ckeditor form-control" placeholder="Input Description...." required>{{$item->keterangan}}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -259,7 +238,7 @@
                             <label class="form-label">Description</label>
                             <div class="card card-bordered">
                                 <div class="card-inner">
-                                    <textarea style="display: none;" name="keterangan" class="summernote-basic form-control" placeholder="Input Description...." required>{{$item->keterangan}}</textarea>
+                                    <textarea style="display: none;" name="keterangan" class="ckeditor form-control" placeholder="Input Description...." required>{{$item->keterangan}}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -350,10 +329,4 @@
         </div>
     </div>
     @endforeach
-    {{-- <script>
-        CKEDITOR.on( 'keterangan', function( ev ) {
-            // Ends self-closing tags the HTML4 way, like <br>.
-            ev.editor.dataProcessor.writer.selfClosingEnd = '>';
-        });
-    </script> --}}
 @endsection

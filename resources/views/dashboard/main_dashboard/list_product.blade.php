@@ -12,102 +12,98 @@
     }
 </style>
 
-<div class="nk-content ">
-    <div class="container-fluid">
-        <div class="nk-content-inner">
-            <div class="nk-content-body">
-                <div class="card-inner">
-                    <div class="preview-block">
-                        <div class="row gy-4">
-                            <div class="col-sm-12">
-                                <hr class="preview-hr">
-                                <a class="btn btn-primary" href="products">Add Product</a>
-                                <hr class="preview-hr">
-                                <span class="preview-title-lg overline-title">List Products</span>
-                                <div class="row gy-4 align-center">
-                                    {{-- tabel kategori --}}
-                                    <div class="col-12">
-                                        @if ($message = Session::get('success'))
-                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </div>
-                                        @endif
-                                        @if ($message = Session::get('error'))
-                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </div>
-                                        @endif
-                                        <div class="card card-preview">
-                                            <div class="card-inner">
-                                                <table class="datatable-init table">
-                                                    <thead>
-                                                        <tr class="tb-odr-item">
-                                                            <th>No</th>
-                                                            <th>Title</th>
-                                                            <th>Slug</th>
-                                                            <th>Description</th>
-                                                            <th>Category</th>
-                                                            <th>Sub Category</th>
-                                                            <th>Status</th>
-                                                            <th>Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody class="tb-odr-body">
-                                                        @foreach ($barang as $item)
-                                                        <tr class="tb-odr-item">
-                                                            <td>{{ $loop->iteration }}</td>
-                                                            <td>{{ $item->judul }}</td>
-                                                            <td>{{ $item->slug }}</td>
-                                                            <td>{!! Str::limit( strip_tags($item->keterangan),50)!!}</td>
-                                                            <td>{{ $item->kate_name }}</td>
-                                                            <td>{{ $item->sub_name }}</td>
-                                                            <td>
-                                                            @if ( $item->status == "tampilkan")
-                                                                <form action="/update_top_product" method="get">
-                                                                @csrf
-                                                                    <input type="text" value="{{$item->id}}" name="id" hidden>
-                                                                    <input type="text" value="{{$item->status}}" name="status" hidden>
-                                                                    <button class="btn btn-white" type="submit"><i style="font-size: 2rem;color: yellow" class="bi bi-star-fill"></i></button>
-                                                                </form>
-                                                            @elseif ( $item->status == "sembunyikan")
-                                                                <form action="/update_top_product" method="get">
-                                                                @csrf
-                                                                    <input type="text" value="{{$item->id}}" name="id" hidden>
-                                                                    <input type="text" value="{{$item->status}}" name="status" hidden>
-                                                                    {{-- <a class="btn btn-secondary"><i class="bi bi-star-fill"></i></a> --}}
-                                                                    <button class="btn btn-white " type="submit"><i style="font-size: 2rem;color: rgb(167, 162, 162)" class="bi bi-star-fill"></i></button>
-                                                                </form>
-                                                            @endif
-                                                            </td>
-                                                            <td>
-                                                                <div class="dropdown">
-                                                                    <a class="text-soft dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown" data-offset="-8,0"><em class="icon ni ni-more-h"></em></a>
-                                                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-xs">
-                                                                        <ul class="link-list-plain">
-                                                                            <li>
-                                                                                <a href="/edit/{{ $item->id }}" class="text-primary">Edit</a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="/del/{{ $item->id }}" onclick="return confirm('Delete {{$item->judul}} Are you sure?,\nYou wont be able to revert this!?')" class="text-danger">Remove</a>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        @endforeach
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<header class="mb-3">
+    <a href="#" class="burger-btn d-block d-xl-none">
+        <i class="bi bi-justify fs-3"></i>
+    </a>
+</header>
+
+<div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Products Management</h3>
             </div>
         </div>
     </div>
+    <section class="section">
+        <div class="card">
+            <div class="card-body">
+                @if (session('errors'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        Something it's wrong:
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                @if ($message = Session::get('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </div>
+                @endif
+                @if ($message = Session::get('error'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </div>
+                @endif
+                <div class="form-group">
+                    <a class="btn btn-primary" href="products">Add Product</a>
+                </div>
+                <hr>
+                <table class="table table-striped" id="table1">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Title</th>
+                            <th>Slug</th>
+                            <th>Description</th>
+                            <th>Category</th>
+                            <th>Sub Category</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($barang as $item)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $item->judul }}</td>
+                            <td>{{ $item->slug }}</td>
+                            <td>{!! Str::limit( strip_tags($item->keterangan),50)!!}</td>
+                            <td>{{ $item->kate_name }}</td>
+                            <td>{{ $item->sub_name }}</td>
+                            <td>
+                            @if ( $item->status == "tampilkan")
+                                <form action="/update_top_product" method="get">
+                                @csrf
+                                    <input type="text" value="{{$item->id}}" name="id" hidden>
+                                    <input type="text" value="{{$item->status}}" name="status" hidden>
+                                    <button class="btn btn-white" type="submit"><i style="font-size: 2rem;color: yellow" class="bi bi-star-fill"></i></button>
+                                </form>
+                            @elseif ( $item->status == "sembunyikan")
+                                <form action="/update_top_product" method="get">
+                                @csrf
+                                    <input type="text" value="{{$item->id}}" name="id" hidden>
+                                    <input type="text" value="{{$item->status}}" name="status" hidden>
+                                    {{-- <a class="btn btn-secondary"><i class="bi bi-star-fill"></i></a> --}}
+                                    <button class="btn btn-white " type="submit"><i style="font-size: 2rem;color: rgb(167, 162, 162)" class="bi bi-star-fill"></i></button>
+                                </form>
+                            @endif
+                            </td>
+                            <td>
+                                <a href="/edit/{{ $item->id }}" class="text-primary">Edit</a>
+                                <a href="/del/{{ $item->id }}" onclick="return confirm('Delete {{$item->judul}} Are you sure?,\nYou wont be able to revert this!?')" class="text-danger">Remove</a>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
 </div>
+
 @endsection

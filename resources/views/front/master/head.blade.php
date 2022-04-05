@@ -194,6 +194,15 @@ https://templatemo.com/tm-545-finance-business
             }
         }
     </script>
+    <script>
+        $(document).ready(function(){
+            $('.slider').slick({
+            autoplay: true,
+            autoplaySpeed: 2500,
+            dots: true
+            });
+        });
+    </script>
 
 </body>
 

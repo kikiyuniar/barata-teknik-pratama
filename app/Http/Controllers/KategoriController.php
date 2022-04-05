@@ -26,9 +26,12 @@ class KategoriController extends Controller
     }
     public function index2()
     {
-        $data = Subkategori::all();
+        $data = Subkategori::join('kategoris', 'kategoris.id', '=', 'subkategoris.kategori_id')
+            ->get(['subkategoris.*', 'kategoris.name as kate_name']);
+        $data2 = Kategori::all();
         return view('dashboard.main_dashboard.add_sub_category', [
-            'sub_kategori'  => $data
+            'subkategori'  => $data,
+            'kategori'     => $data2
         ]);
     }
     public function create(Request $request)
@@ -202,7 +205,7 @@ class KategoriController extends Controller
         $subkategori = Subkategori::where('kategori_id', $id_kategori)->get();
         $option      = "<option>Select Sub Category ...</option>";
         foreach ($subkategori as $item) {
-            $option .= "<option value='$item->id' >$item->id || $item->name</option>";
+            $option .= "<option value='$item->id' >$item->name</option>";
         }
         echo $option;
     }

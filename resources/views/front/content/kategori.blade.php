@@ -1,11 +1,27 @@
 @extends('front.master.subhead')
 {{-- @extends('master.footer') --}}
 @section('main')
+<style>
+    .lis {
+      color: black;
+    }
+    
+    .lis:hover {
+      color: #0d8def;
+    }
+    li.b {
+      list-style-type: square;
+      margin-left: 10px;
+    }
+</style>
 <div class="page-heading header-text">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <h1>Categories</h1>
+                @foreach ($head as $item)
+                <h3>{{$item->kat_name}}</em></h3>
+                @endforeach
             </div>
         </div>
     </div>
@@ -49,13 +65,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($kate as $item)
+                        
                         <tr>
                             <td>
-                                <a href="{{ ('../../product/categories/'.$item->slug_kategori) }}" class="list-group-item list-group-item-action">{{$item->name}}</a>
+                                <ul>
+                                    @foreach ($kate as $item)
+                                    <li class="b"><a class="lis" href="{{ ('../../product/categories/'.$item->slug_kategori) }}">{{$item->name}}</a></li>
+                                    @endforeach
+                                </ul>
                             </td>
                         </tr>
-                        @endforeach
+                        
                     </tbody>
                 </table>
             </div>

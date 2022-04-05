@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SlideController;
+use App\Http\Livewire\Select;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,6 +42,7 @@ Route::get('contact_send', [HomeController::class, 'action_send']);
 Route::get('contact_us', [HomeController::class, 'contact']);
 
 Route::group(['middleware' => 'auth'], function () {
+    // Route::get('dropdown', Select::class);
     Route::get('dashboard', [Controller::class, 'dashboard']);
     Route::get('contact', [HomeController::class, 'show_contact']);
     Route::get('del_contact/{id}', [HomeController::class, 'del_contact']);
